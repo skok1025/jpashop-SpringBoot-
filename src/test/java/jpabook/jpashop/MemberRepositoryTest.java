@@ -2,6 +2,7 @@ package jpabook.jpashop;
 
 import javax.transaction.Transactional;
 
+import jpabook.jpashop.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,7 @@ public class MemberRepositoryTest {
 		Long saveId = memberRepository.save(member);
 		
 		//then
-		Member findMember = memberRepository.find(saveId);
+		Member findMember = memberRepository.findOne(saveId);
 		
 		Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
 		Assertions.assertThat(findMember.getName()).isEqualTo(member.getName());
