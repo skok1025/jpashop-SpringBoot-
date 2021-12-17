@@ -1,5 +1,6 @@
 buildscript {
 	ext {
+		p6spyVersion = "1.5.6"
 		queryDslVersion = "4.4.0"
 	}
 }
@@ -30,11 +31,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-devtools'
-	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6")
+	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:$p6spyVersion")
 
 	// QueryDSL
-	implementation "com.querydsl:querydsl-jpa:4.4.0"
-	annotationProcessor "com.querydsl:querydsl-apt:4.4.0:jpa"
+	implementation "com.querydsl:querydsl-jpa:$queryDslVersion"
+	annotationProcessor "com.querydsl:querydsl-apt:$queryDslVersion:jpa"
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
