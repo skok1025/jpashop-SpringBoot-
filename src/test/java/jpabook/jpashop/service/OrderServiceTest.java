@@ -8,6 +8,7 @@ import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderSearch;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -84,10 +87,28 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testOrderStockOverflow() {
+    public void testOrderSearch() {
         // given
+        Member member = createMember("회원1");
+        Book book = createBook("시골 JPA", 10000, 10);
+        int orderCount = 2;
+        orderService.order(member.getId(), book.getId(), orderCount);
+
+        // given
+        Member member2 = createMember("회원1");
+        Book book2 = createBook("시골 JPA", 10000, 10);
+        int orderCount2 = 1;
+        orderService.order(member2.getId(), book2.getId(), orderCount2);
+
         // when
-        // then
+        OrderSearch orderSearch = new OrderSearch();
+        orderSearch.setMemberName("회원1");
+
+        List<Order> orders = orderService.findOrders(orderSearch);
+        for (Order order: orders) {
+            System.out.println(order);
+        }
+        assertEquals(2, orders.size());
     }
 
     private Member createMember(String name) {
